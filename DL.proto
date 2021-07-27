@@ -1,0 +1,33 @@
+syntax = "proto3";
+package vi;
+option java_package = "com.kt.smta.vi.proto";
+option java_outer_classname = "DL";
+
+// DL Input : DL로 들어가는 Input 객체
+message DLInput {
+    string imgUrl = 1;
+    int32 subJobNum = 2;
+    repeated ROI roiList = 3;
+}
+
+// DL Output : DL 추론 결과 객체
+message DLOutput {
+    string imgUrl = 1;
+    repeated Result result = 2;
+    // 결과값 + 해당 ROI 영역
+    message Result {
+        string value = 1;
+        ROI roi = 2;
+    }
+}
+
+// ROI : 하나의 ROI. vertex 의 집합
+message ROI {
+    repeated Vertex roi = 1;
+    // 하나의 vertex
+    message Vertex {
+        int32 x = 1;
+        int32 y = 2;
+    }
+}
+
